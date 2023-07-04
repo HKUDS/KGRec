@@ -72,7 +72,7 @@ class AttnHGCN(nn.Module):
         edge_attn_score = scatter_softmax(edge_attn_score, head)
         entity_agg = value * edge_attn_score.view(-1, self.n_heads, 1)
         entity_agg = entity_agg.view(-1, self.n_heads*self.d_k)
-        # 因为前面有了attn weight, 所以这里不需要再mean, 改为sum
+        # attn weight makes mean to sum
         entity_agg = scatter_sum(src=entity_agg, index=head, dim_size=n_entities, dim=0)
 
         item_agg = inter_edge_w.unsqueeze(-1) * entity_emb[inter_edge[1, :]]
@@ -168,13 +168,13 @@ class AttnHGCN(nn.Module):
 
         edge_attn = (query * key).sum(dim=-1) / math.sqrt(self.d_k)
         edge_attn_logits = edge_attn.mean(-1).detach()
-        # 按照head node进行softmax
+        # softmax by head_node
         edge_attn_score = scatter_softmax(edge_attn_logits, head)
-        # 除以head node的度进行归一化
+        # normalization by head_node degree
         norm = scatter_sum(torch.ones_like(head), head, dim=0, dim_size=entity_emb.shape[0])
         norm = torch.index_select(norm, 0, head)
         edge_attn_score = edge_attn_score * norm
-        # 打印attn score
+        # print attn score
         if print:
             self.logger.info("edge_attn_score std: {}".format(edge_attn_score.std()))
         if return_logits:

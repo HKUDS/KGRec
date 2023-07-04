@@ -171,7 +171,7 @@ class KGRec(nn.Module):
                        n_relations=self.n_relations,
                        node_dropout_rate=self.node_dropout_rate,
                        mess_dropout_rate=self.mess_dropout_rate)
-        self.grace_loss = Contrast(self.emb_size, tau=self.tau)
+        self.contrast_fn = Contrast(self.emb_size, tau=self.tau)
 
         # self.print_shapes()
 
@@ -264,7 +264,7 @@ class KGRec(nn.Module):
             user_emb, item_emb[:self.n_items], cl_ui_edge, cl_ui_w)
         item_agg_kg = self.gcn.forward_kg(
             item_emb, cl_kg_edge, cl_kg_type)[:self.n_items]
-        cl_loss = self.cl_coef * self.grace_loss(item_agg_ui, item_agg_kg)
+        cl_loss = self.cl_coef * self.contrast_fn(item_agg_ui, item_agg_kg)
 
         loss_dict = {
             "rec_loss": loss.item(),
@@ -332,7 +332,7 @@ class KGRec(nn.Module):
         self.logger.info("########## Ablation ##########")
         self.logger.info("ablation: {}".format(self.ablation))
         self.logger.info("########## Model HPs ##########")
-        self.logger.info("tau: {}".format(self.grace_loss.tau))
+        self.logger.info("tau: {}".format(self.contrast_fn.tau))
         self.logger.info("cL_drop: {}".format(self.cl_drop))
         self.logger.info("cl_coef: {}".format(self.cl_coef))
         self.logger.info("mae_coef: {}".format(self.mae_coef))
