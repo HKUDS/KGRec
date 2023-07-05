@@ -4,14 +4,14 @@ This is the Pytorch implementation for our paper at KDD'23: **Knowledge Graph Se
 ## Environment Dependencies
 You can refer to `requirements.txt` for the experimental environment we set to use.
 
-## run KGSR
+## run KGRec
 Simply use:
 
 `python run_kgrec.py --dataset [dataset_name]`
 
 And the hyperparameters we use are fixed according to the dataset in `KGRec.py`.
 
-## Baseline Models
+## Baseline Models (KGCL, KGIN)
 We also implement KGCL and include the original KGIN release in our repository. For example, to run KGCL, you may execute:
 
 **alibaba-ifashion**
