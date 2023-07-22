@@ -128,7 +128,7 @@ class Evaluator:
 
         count = 0
 
-        entity_gcn_emb, user_gcn_emb = model.generate()
+        user_gcn_emb, entity_gcn_emb = model.generate()
 
         for u_batch_id in range(n_user_batchs):
             start = u_batch_id * u_batch_size
