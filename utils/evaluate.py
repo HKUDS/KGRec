@@ -1,5 +1,5 @@
 from .metrics import *
-from .parser import parse_args
+from .parser import parse_args_kgin as parse_args
 
 import torch
 import numpy as np

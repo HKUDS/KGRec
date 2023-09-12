@@ -12,9 +12,9 @@ import os
 from time import time
 from prettytable import PrettyTable
 
-from utils.parser import parse_args
+from utils.parser import parse_args_kgin as parse_args
 from utils.data_loader import load_data
-from modules.KGIN import Recommender
+from modules.KGIN.KGIN import Recommender
 from utils.evaluate import test
 from utils.helper import early_stopping
 
