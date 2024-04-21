@@ -28,3 +28,12 @@ We also implement KGCL and include the original KGIN release in our repository. 
 
 ## Citation
 Please kindly cite our work if you find our paper or codes helpful.
+```
+@inproceedings{yang2023knowledge,
+  title={Knowledge graph self-supervised rationalization for recommendation},
+  author={Yang, Yuhao and Huang, Chao and Xia, Lianghao and Huang, Chunzhen},
+  booktitle={Proceedings of the 29th ACM SIGKDD conference on knowledge discovery and data mining},
+  pages={3046--3056},
+  year={2023}
+}
+```
